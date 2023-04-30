@@ -1,0 +1,32 @@
+
+{
+  "name": "goit-js-hw-09",
+  "version": "2.0.0",
+  "description": "",
+  "homepage": "https://vasylkivt.github.io/goit-js-hw-09",
+  "scripts": {
+    "start": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-09/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasylkivt/goit-js-hw-09.git"
+  },
+  "keywords": [],
+  "author": "Taras Vasylkiv <vasylkiv.t@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vasylkivt/goit-js-hw-09/issues"
+  },
+  "dependencies": {
+    "modern-normalize": "^1.1.0",
+    "node-gyp-build-optional-packages": "^5.0.7"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "posthtml-include": "^1.7.4"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
