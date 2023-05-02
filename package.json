@@ -1,4 +1,3 @@
-
 {
   "name": "goit-js-hw-09",
   "version": "2.0.0",
@@ -19,8 +18,10 @@
     "url": "https://github.com/vasylkivt/goit-js-hw-09/issues"
   },
   "dependencies": {
+    "flatpickr": "^4.6.13",
     "modern-normalize": "^1.1.0",
-    "node-gyp-build-optional-packages": "^5.0.7"
+    "node-gyp-build-optional-packages": "^5.0.7",
+    "notiflix": "^3.2.6"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
