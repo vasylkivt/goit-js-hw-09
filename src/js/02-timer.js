@@ -79,7 +79,8 @@ function onResetBtnClick() {
 function updateTimer() {
   const convertTime = convertMs(selectedDate - new Date());
   if (selectedDate - new Date() < 0) {
-    clearInterval(timerId);
+    onResetBtnClick();
+  
     return;
   }
   timerEl.querySelector('[data-days]').textContent = addLeadingZero(
