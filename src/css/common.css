@@ -39,3 +39,15 @@ img {
   text-transform: uppercase;
   font-size: 12px;
 }
+
+.form{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.form button{
+  display: block;
+  padding: 5px;
+  width: 300px;
+}

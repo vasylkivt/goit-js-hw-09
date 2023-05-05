@@ -77,24 +77,18 @@ function onResetBtnClick() {
 }
 
 function updateTimer() {
-  const convertTime = convertMs(selectedDate - new Date());
+  const { days, hours, minutes, seconds } = convertMs(
+    selectedDate - new Date()
+  );
   if (selectedDate - new Date() < 0) {
     onResetBtnClick();
-  
     return;
   }
-  timerEl.querySelector('[data-days]').textContent = addLeadingZero(
-    convertTime.days
-  );
-  timerEl.querySelector('[data-hours]').textContent = addLeadingZero(
-    convertTime.hours
-  );
-  timerEl.querySelector('[data-minutes]').textContent = addLeadingZero(
-    convertTime.minutes
-  );
-  timerEl.querySelector('[data-seconds]').textContent = addLeadingZero(
-    convertTime.seconds
-  );
+
+  timerEl.querySelector('[data-days]').textContent = addLeadingZero(days);
+  timerEl.querySelector('[data-hours]').textContent = addLeadingZero(hours);
+  timerEl.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
+  timerEl.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
 }
 
 function addLeadingZero(value) {
