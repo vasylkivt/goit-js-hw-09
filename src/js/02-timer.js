@@ -6,6 +6,12 @@ import 'flatpickr/dist/flatpickr.min.css';
 const datetimeInputEl = document.getElementById('datetime-picker');
 const btnStart = document.querySelector('[data-start]');
 const timerEl = document.querySelector('.timer');
+const refs = {
+  days: timerEl.querySelector('[data-days]'),
+  hours: timerEl.querySelector('[data-hours]'),
+  minutes: timerEl.querySelector('[data-minutes]'),
+  seconds: timerEl.querySelector('[data-seconds]'),
+};
 
 let selectedDate;
 let timerId = null;
@@ -53,9 +59,17 @@ function onStartBtnClick() {
     clickToClose: true,
   });
 
+  timerEl.insertAdjacentHTML(
+    'beforeend',
+    `<div class="field">
+        <span class="value" data-milliseconds>000</span>
+        <span class="label">Milliseconds</span>
+      </div>`
+  );
+
   updateTimer();
 
-  timerId = setInterval(updateTimer, 1000);
+  timerId = setInterval(updateTimer, 48);
 
   btnStart.addEventListener('click', onResetBtnClick);
 }
@@ -65,10 +79,11 @@ function onResetBtnClick() {
 
   clearInterval(timerId);
 
-  timerEl.querySelector('[data-days]').textContent = '00';
-  timerEl.querySelector('[data-hours]').textContent = '00';
-  timerEl.querySelector('[data-minutes]').textContent = '00';
-  timerEl.querySelector('[data-seconds]').textContent = '00';
+  refs.days.textContent = '00';
+  refs.hours.textContent = '00';
+  refs.minutes.textContent = '00';
+  refs.seconds.textContent = '00';
+  timerEl.querySelector('[data-milliseconds]').parentNode.remove();
 
   datetimeInputEl.removeAttribute('disabled');
   btnStart.textContent = 'Start';
@@ -77,7 +92,7 @@ function onResetBtnClick() {
 }
 
 function updateTimer() {
-  const { days, hours, minutes, seconds } = convertMs(
+  const { days, hours, minutes, seconds, milliseconds } = convertMs(
     selectedDate - new Date()
   );
   if (selectedDate - new Date() < 0) {
@@ -85,18 +100,23 @@ function updateTimer() {
     return;
   }
 
-  timerEl.querySelector('[data-days]').textContent = addLeadingZero(days);
-  timerEl.querySelector('[data-hours]').textContent = addLeadingZero(hours);
-  timerEl.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
-  timerEl.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
+  refs.days.textContent = addLeadingZero(days, 2);
+  refs.hours.textContent = addLeadingZero(hours, 2);
+  refs.minutes.textContent = addLeadingZero(minutes, 2);
+  refs.seconds.textContent = addLeadingZero(seconds, 2);
+  timerEl.querySelector('[data-milliseconds]').textContent = addLeadingZero(
+    milliseconds,
+    3
+  );
 }
 
-function addLeadingZero(value) {
-  return value.toString().padStart(2, '0');
+function addLeadingZero(value, amount) {
+  return value.toString().padStart(amount, '0');
 }
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
+
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
@@ -110,6 +130,7 @@ function convertMs(ms) {
   const minutes = Math.floor(((ms % day) % hour) / minute);
   // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const milliseconds = Math.floor((((ms % day) % hour) % minute) % second);
 
-  return { days, hours, minutes, seconds };
+  return { days, hours, minutes, seconds, milliseconds };
 }
