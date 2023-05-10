@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown timer</title>
+    <link rel="stylesheet" href="css/common.css" />
+  </head>
+  <body>
+    <p><a href="index.html">Go back</a></p>
+    <label for="year-input">Введіть до кінця якого року Ви хочите побачити відлік:</label>
+    <input type="number" value="2024" id="year-input" name="year" min="2024" max="2100" />
+
+    <button type="button" data-start>Start</button>
+
+    <div class="timer">
+      <div class="field">
+        <span class="value" data-days>00</span>
+        <span class="label">Days</span>
+      </div>
+      <div class="field">
+        <span class="value" data-hours>00</span>
+        <span class="label">Hours</span>
+      </div>
+      <div class="field">
+        <span class="value" data-minutes>00</span>
+        <span class="label">Minutes</span>
+      </div>
+      <div class="field">
+        <span class="value" data-seconds>00</span>
+        <span class="label">Seconds</span>
+      </div>
+      <div class="field">
+        <span class="value" data-milliseconds>000</span>
+        <span class="label">Milliseconds</span>
+      </div>
+    </div>
+
+    <script src="js/countdownToNewYear.js" type="module"></script>
+  </body>
+</html>
