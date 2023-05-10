@@ -11,6 +11,9 @@ formEl.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
   e.preventDefault();
+
+  console.log(e);
+  
   formBtnEl.setAttribute('disabled', '');
 
   const {
