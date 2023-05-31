@@ -4,16 +4,18 @@ const formEl = document.querySelector('.form');
 const formBtnEl = formEl.querySelector('button');
 
 // formEl.elements.delay.value = 1100;
-// formEl.elements.step.value = 1500;
+// formEl.elements.step.value = 500;
 // formEl.elements.amount.value = 7;
 
 formEl.addEventListener('submit', onSubmit);
 
+/**
+ *? Обробляє подію submit форми
+ * @param {Event} e - Об'єкт події submit
+ */
 function onSubmit(e) {
   e.preventDefault();
 
-  console.log(e);
-  
   formBtnEl.setAttribute('disabled', '');
 
   const {
@@ -46,6 +48,12 @@ function onSubmit(e) {
   }
 }
 
+/**
+ *? Створює об'єкт Promise з випадковим вирішенням або відхиленням
+ * @param {number} position - Позиція обіцянки
+ * @param {number} delay - Затримка перед вирішенням або відхиленням
+ * @returns {Promise} - Об'єкт Promise
+ */
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
@@ -61,29 +69,3 @@ function createPromise(position, delay) {
     }
   });
 }
-
-// formEl.addEventListener('submit', function (e) {
-//   e.preventDefault();
-
-//   const {
-//     elements: { delay, amount, step },
-//   } = e.currentTarget;
-
-//   let delays = delay.value;
-
-//   for (let i = 1; i <= amount.value; i++) {
-//     setTimeout(createPromise, delays, i, delays);
-//     delays = +delays + +step.value;
-//     console.log('delays:', delays);
-//   }
-// });
-
-// function createPromise(position, delay) {
-//   const shouldResolve = Math.random() > 0.3;
-
-//   if (shouldResolve) {
-//     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   } else {
-//     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-//   }
-// }
