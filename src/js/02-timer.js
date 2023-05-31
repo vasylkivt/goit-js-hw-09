@@ -16,9 +16,12 @@ const refs = {
 let selectedDate;
 let timerId = null;
 
-btnStart.setAttribute('disabled', '');
+btnStart.disabled = true;
 btnStart.style.fontSize = '30px';
 
+/**
+ *? Ініціалізація flatpickr для вибору дати та часу
+ */
 flatpickr('#datetime-picker', {
   enableTime: true,
   time_24hr: true,
@@ -30,8 +33,13 @@ flatpickr('#datetime-picker', {
   },
 });
 
+/**
+ *? Перевіряє вибрану дату та показує відповідне повідомлення
+ */
 function statusSelectedDate() {
   if (selectedDate - new Date() < 0) {
+    btnStart.disabled = true;
+
     return Notiflix.Notify.failure('Please choose a date in the future', {
       clickToClose: true,
     });
@@ -39,6 +47,9 @@ function statusSelectedDate() {
   preparesForStart();
 }
 
+/**
+ *? Підготовка до початку таймера
+ */
 function preparesForStart() {
   Notiflix.Notify.info(
     'You have selected the correct date, click the "Start button" to start the timer.',
@@ -47,13 +58,16 @@ function preparesForStart() {
     }
   );
 
-  btnStart.removeAttribute('disabled');
+  btnStart.disabled = false;
   btnStart.addEventListener('click', onStartBtnClick);
 }
 
+/**
+ *? Обробник кліку на кнопку "Start"
+ */
 function onStartBtnClick() {
   btnStart.textContent = 'Reset';
-  datetimeInputEl.setAttribute('disabled', '');
+  datetimeInputEl.disabled = true;
   btnStart.removeEventListener('click', onStartBtnClick);
   Notiflix.Notify.success('Timer is running!', {
     clickToClose: true,
@@ -74,6 +88,9 @@ function onStartBtnClick() {
   btnStart.addEventListener('click', onResetBtnClick);
 }
 
+/**
+ *? Обробник кліку на кнопку "Reset"
+ */
 function onResetBtnClick() {
   Notiflix.Notify.info('The timer is cleared, select a new date.');
 
@@ -85,12 +102,15 @@ function onResetBtnClick() {
   refs.seconds.textContent = '00';
   timerEl.querySelector('[data-milliseconds]').parentNode.remove();
 
-  datetimeInputEl.removeAttribute('disabled');
+  datetimeInputEl.disabled = false;
   btnStart.textContent = 'Start';
-  btnStart.setAttribute('disabled', '');
+  btnStart.disabled = true;
   btnStart.removeEventListener('click', onResetBtnClick);
 }
 
+/**
+ *? Оновлення значень таймера
+ */
 function updateTimer() {
   const { days, hours, minutes, seconds, milliseconds } = convertMs(
     selectedDate - new Date()
@@ -110,10 +130,21 @@ function updateTimer() {
   );
 }
 
+/**
+ *? Додавання ведучих нулів до числа
+ * @param {number} value - Число
+ * @param {number} amount - Максимальна кількість цифр
+ * @returns {string} - Число з доданими ведучими нулями
+ */
 function addLeadingZero(value, amount) {
   return value.toString().padStart(amount, '0');
 }
 
+/**
+ *? Перетворення мілісекунд у об'єкт з днями, годинами, хвилинами, секундами та мілісекундами
+ * @param {number} ms - Кількість мілісекунд
+ * @returns {Object} - Об'єкт з днями, годинами, хвилинами, секундами та мілісекундами
+ */
 function convertMs(ms) {
   // Number of milliseconds per unit of time
 
